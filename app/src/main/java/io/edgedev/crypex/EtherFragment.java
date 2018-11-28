@@ -90,7 +90,11 @@ public class EtherFragment extends Fragment {
                     list = response.body().getItems();
                     if (list == null) return;
                     mEtherAdapter.setList(list);
-                    tinyDB.putListCurrency(ETHER_KEY, list);
+                    try {
+                        tinyDB.putListCurrency(ETHER_KEY, list);
+                    } catch (Exception e){
+                        Log.e(TAG, e.getMessage());
+                    }
                     mListener.syncSuccessful(new SimpleDateFormat("yyyy/MM/dd h:mm a").format(new Date()));
                     mListener.useSnackbar("posts loaded from API");
                     retryBtn.setVisibility(View.GONE);

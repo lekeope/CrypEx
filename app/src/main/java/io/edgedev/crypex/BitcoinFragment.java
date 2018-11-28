@@ -94,7 +94,11 @@ public class BitcoinFragment extends Fragment {
                     list = response.body().getItems();
                     if (list == null) return;
                     mBitCoinAdapter.setList(list);
-                    tinyDB.putListCurrency(BTC_KEY, list);
+                    try {
+                        tinyDB.putListCurrency(BTC_KEY, list);
+                    } catch (Exception e){
+                        Log.e(TAG, e.getMessage());
+                    }
                     mListener.syncSuccessful(new SimpleDateFormat("yyyy/MM/dd h:mm a").format(new Date()));
                     mListener.useSnackbar("posts loaded from API");
                     retryBtn.setVisibility(View.GONE);
